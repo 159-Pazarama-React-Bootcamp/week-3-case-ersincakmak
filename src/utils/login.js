@@ -1,4 +1,8 @@
-import { signInWithPopup } from 'firebase/auth'
+import {
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth'
 import {
   auth,
   facebookProvider,
@@ -6,29 +10,38 @@ import {
   googleProvider,
 } from '../firebase'
 
-export const loginWithGoogle = async () => {
-  try {
-    const { user } = await signInWithPopup(auth, googleProvider)
-    return JSON.parse(JSON.stringify(user))
-  } catch (error) {
-    return error.message
+const selectProvider = (provider) => {
+  switch (provider) {
+    case 'github':
+      return githubProvider
+    case 'facebook':
+      return facebookProvider
+    case 'google':
+      return googleProvider
+    default:
+      break
   }
 }
 
-export const loginWithGithub = async () => {
-  try {
-    const { user } = await signInWithPopup(auth, githubProvider)
-    return JSON.parse(JSON.stringify(user))
-  } catch (error) {
-    return error.message
-  }
+export const loginWithProvider = async (provider) => {
+  const { user } = await signInWithPopup(auth, selectProvider(provider))
+  return JSON.parse(JSON.stringify(user))
 }
 
-export const loginWithFacebook = async () => {
-  try {
-    const { user } = await signInWithPopup(auth, facebookProvider)
-    return JSON.parse(JSON.stringify(user))
-  } catch (error) {
-    return error.message
-  }
+export const loginWithEmail = async (payload) => {
+  const { user } = await signInWithEmailAndPassword(
+    auth,
+    payload.email,
+    payload.password
+  )
+  return JSON.parse(JSON.stringify(user))
+}
+
+export const registerWithEmail = async (payload) => {
+  const { user } = await createUserWithEmailAndPassword(
+    auth,
+    payload.email,
+    payload.password
+  )
+  return JSON.parse(JSON.stringify(user))
 }

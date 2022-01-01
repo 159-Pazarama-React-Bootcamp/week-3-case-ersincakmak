@@ -31,6 +31,9 @@ export const CustomButton = styled.button`
   margin-top: 2.625rem;
   transition: all 0.2s ease;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   :hover {
     filter: brightness(0.87);

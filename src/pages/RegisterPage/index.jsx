@@ -1,13 +1,34 @@
-import React from 'react'
-import { TextField, PasswordField } from '../../components/Form'
+import { FormikProvider, useFormik } from 'formik'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Button'
-import SignInUpContainer from '../../components/SingInUpContainer'
-import { LoginMessage } from './style'
+import { PasswordField, TextField } from '../../components/Form'
 import Link from '../../components/Link'
-import { useFormik, FormikProvider } from 'formik'
+import SignInUpContainer from '../../components/SingInUpContainer'
+import Spinner from '../../components/Spinner'
+import { registerWithEmail } from '../../utils/login'
 import { registerFormValidationSchema } from '../../utils/validations'
+import { LoginMessage } from './style'
 
 const RegisterPage = () => {
+  const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate()
+
+  const handleSubmit = async (values) => {
+    setLoading(true)
+    try {
+      await registerWithEmail({
+        email: values.email,
+        password: values.password,
+      })
+      navigate('/home')
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+  }
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -16,9 +37,7 @@ const RegisterPage = () => {
       confirmPassword: '',
     },
     validationSchema: registerFormValidationSchema,
-    onSubmit: (values) => {
-      console.log(values)
-    },
+    onSubmit: handleSubmit,
   })
 
   return (
@@ -30,25 +49,29 @@ const RegisterPage = () => {
             placeholder="username"
             type="text"
             name="username"
+            tabIndex="1"
           />
           <TextField
             label="Email"
             placeholder="username@gmail.com"
             type="email"
             name="email"
+            tabIndex="2"
           />
           <PasswordField
             label="Password"
             placeholder="Password"
             name="password"
+            tabIndex="3"
           />
           <PasswordField
             label="Confirm Password"
             placeholder="Confirm Password"
             name="confirmPassword"
+            tabIndex="4"
           />
-          <Button fullWidth size="md" type="submit">
-            Register
+          <Button fullWidth size="md" type="submit" tabIndex="5">
+            {loading ? <Spinner /> : 'Register'}
           </Button>
         </form>
       </FormikProvider>
