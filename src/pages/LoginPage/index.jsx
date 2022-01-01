@@ -1,25 +1,50 @@
 import React from 'react'
 import Button from '../../components/Button'
 import ButtonWithIcon from '../../components/ButtonWithIcon'
-import PasswordField from '../../components/Form/PassswordField'
-import TextField from '../../components/Form/TextField'
+import { TextField, PasswordField } from '../../components/Form'
 import Link from '../../components/Link'
 import SignInUpContainer from '../../components/SingInUpContainer'
 import { ContinueText, LoginOptions, RegisterMessage } from './style'
 import { FcGoogle } from 'react-icons/fc'
 import { RiGithubFill, RiFacebookCircleFill } from 'react-icons/ri'
+import { useFormik, FormikProvider } from 'formik'
+import { loginFormValidationSchema } from '../../utils/validations'
 
 const LoginPage = () => {
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: loginFormValidationSchema,
+    onSubmit: (values) => {
+      console.log(values)
+    },
+  })
+
   return (
     <SignInUpContainer title="Login">
-      <TextField type="email" label="Email" placeholder="username@gmail.com" />
-      <PasswordField label="Password" placeholder="Password" />
-      <Link to="#" fontSize="sm" fontWeight="normal">
-        Forgot Password?
-      </Link>
-      <Button size="md" fullWidth>
-        Sign in
-      </Button>
+      <FormikProvider value={formik}>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            label="Email"
+            name="email"
+            placeholder="username@gmail.com"
+            type="email"
+          />
+          <PasswordField
+            label="Password"
+            name="password"
+            placeholder="Password"
+          />
+          <Link to="#" fontSize="sm" fontWeight="normal">
+            Forgot Password?
+          </Link>
+          <Button size="md" fullWidth type="submit">
+            Sign in
+          </Button>
+        </form>
+      </FormikProvider>
       <ContinueText>or continue with</ContinueText>
       <LoginOptions>
         <ButtonWithIcon>

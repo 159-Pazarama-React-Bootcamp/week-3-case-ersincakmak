@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 export const Input = styled.input`
   width: 100%;
-  border: 1px solid #bcbec0;
+  border: 1px solid ${(props) => (props.error ? '#d80000' : '#bcbec0')};
   border-radius: 40px;
   padding: 1.0625rem 1.375rem;
-  color: #bcbec0;
+  color: #414042;
   font-size: 0.875rem;
   line-height: 1.2;
   transition: all 0.2s ease;
@@ -17,13 +17,20 @@ export const Input = styled.input`
   :active,
   :focus,
   :hover {
-    color: #414042;
-    border-color: #414042;
+    border-color: ${(props) => (props.error ? '#d80000' : '#414042')};
   }
 `
 
 export const InputContainer = styled.div`
   position: relative;
+`
+
+export const ErrorMessage = styled.p`
+  position: absolute;
+  bottom: 0;
+  transform: translateY(calc(100% + 0.125rem));
+  color: #d80000;
+  font-size: 0.8125rem;
 `
 
 export const EyeButton = styled.button`

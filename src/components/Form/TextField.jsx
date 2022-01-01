@@ -1,11 +1,18 @@
 import React from 'react'
-import { Field, Input, Title } from './style'
+import { ErrorMessage, Field, Input, InputContainer, Title } from './style'
+import { useField } from 'formik'
 
-const TextField = ({ type = 'text', label, placeholder }) => {
+const TextField = ({ label, ...props }) => {
+  const [field, meta] = useField(props)
   return (
     <Field>
       <Title>{label}</Title>
-      <Input type={type} placeholder={placeholder && placeholder} />
+      <InputContainer>
+        <Input error={!!(meta.touched && meta.error)} {...field} {...props} />
+        {meta.touched && meta.error && (
+          <ErrorMessage>{meta.error}</ErrorMessage>
+        )}
+      </InputContainer>
     </Field>
   )
 }
