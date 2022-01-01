@@ -21,6 +21,7 @@ const RegisterPage = () => {
       await registerWithEmail({
         email: values.email,
         password: values.password,
+        username: values.username,
       })
       navigate('/home')
     } catch (error) {

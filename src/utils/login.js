@@ -2,6 +2,7 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth'
 import {
   auth,
@@ -43,5 +44,8 @@ export const registerWithEmail = async (payload) => {
     payload.email,
     payload.password
   )
+  await updateProfile(auth.currentUser, {
+    displayName: payload.username,
+  })
   return JSON.parse(JSON.stringify(user))
 }
