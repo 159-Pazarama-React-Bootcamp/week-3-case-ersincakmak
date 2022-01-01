@@ -12,15 +12,15 @@ export const Page = styled.div`
   overflow-x: hidden;
 
   @media ${device.tablet} {
-    padding: 4.0625rem 6.25rem;
+    padding-inline: 6.25rem;
   }
 
   @media ${device.desktopS} {
-    padding: 4.6875rem 9.375rem;
+    padding-inline: 9.375rem;
   }
 
   @media ${device.desktopM} {
-    padding: 5rem 11.875rem;
+    padding-inline: 11.875rem;
   }
 `
 export const TransparentImage = styled.img`
@@ -45,6 +45,7 @@ export const Container = styled.div`
   justify-content: center;
   margin-block: auto;
   width: max-content;
+  margin-block: auto;
 
   @media screen and (min-width: 106.25rem) {
     justify-content: flex-start;
