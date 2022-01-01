@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { VscArrowDown } from 'react-icons/vsc'
 import { device } from '../../constants/media'
+import { NavLink } from 'react-router-dom'
 
 export const Layout = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ export const ArrowDown = styled(VscArrowDown)`
   margin-top: 2.1875rem;
 `
 
-export const Button = styled.button`
+export const Button = styled(NavLink)`
   background-image: linear-gradient(0deg, #ea5050 0%, #ee745b 100%);
   padding: 1.5rem;
   border-radius: 6.25rem;
@@ -62,6 +63,7 @@ export const Button = styled.button`
   font-weight: bold;
   color: white;
   text-decoration: underline;
+  text-align: center;
   cursor: pointer;
   transition: all 0.2s ease;
 

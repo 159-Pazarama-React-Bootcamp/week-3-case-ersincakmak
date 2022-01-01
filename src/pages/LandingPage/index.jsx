@@ -32,7 +32,7 @@ const LandingPage = () => {
           I wish you luck, <br /> Drax<Emoji>❤️</Emoji>
         </Paragraph>
         <ArrowDown />
-        <Button> Buy me a Coffee </Button>
+        <Button to={'/login'}> Buy me a Coffee </Button>
       </Container>
       <ImageContainer>
         <img src={LandingPageImage} alt="HumanWithThings" />
