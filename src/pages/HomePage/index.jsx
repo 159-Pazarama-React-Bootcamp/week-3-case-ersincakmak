@@ -12,13 +12,17 @@ const HomePage = () => {
   const navigation = useNavigate()
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unSubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user)
       } else {
         navigation('/')
       }
     })
+
+    return () => {
+      unSubscribe()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -32,7 +36,7 @@ const HomePage = () => {
 
   return (
     <Container>
-      <p>Welcome, {user.email}</p>
+      <p>Welcome, {user.displayName}</p>
       <Button size="sm" onClick={() => signOut(auth)}>
         Sign Out
       </Button>
