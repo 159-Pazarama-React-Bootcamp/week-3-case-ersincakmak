@@ -9,6 +9,11 @@ import { FcGoogle } from 'react-icons/fc'
 import { RiGithubFill, RiFacebookCircleFill } from 'react-icons/ri'
 import { useFormik, FormikProvider } from 'formik'
 import { loginFormValidationSchema } from '../../utils/validations'
+import {
+  loginWithFacebook,
+  loginWithGithub,
+  loginWithGoogle,
+} from '../../utils/login'
 
 const LoginPage = () => {
   const formik = useFormik({
@@ -21,6 +26,33 @@ const LoginPage = () => {
       console.log(values)
     },
   })
+
+  const handleLoginGoogle = async () => {
+    try {
+      const user = await loginWithGoogle()
+      console.log(user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleLoginGithub = async () => {
+    try {
+      const user = await loginWithGithub()
+      console.log(user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleLoginFacebook = async () => {
+    try {
+      const user = await loginWithFacebook()
+      console.log(user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <SignInUpContainer title="Login">
@@ -47,13 +79,13 @@ const LoginPage = () => {
       </FormikProvider>
       <ContinueText>or continue with</ContinueText>
       <LoginOptions>
-        <ButtonWithIcon>
+        <ButtonWithIcon onClick={handleLoginGoogle}>
           <FcGoogle />
         </ButtonWithIcon>
-        <ButtonWithIcon>
+        <ButtonWithIcon onClick={handleLoginGithub}>
           <RiGithubFill />
         </ButtonWithIcon>
-        <ButtonWithIcon>
+        <ButtonWithIcon onClick={handleLoginFacebook}>
           <RiFacebookCircleFill color="#059BE5" />
         </ButtonWithIcon>
       </LoginOptions>
