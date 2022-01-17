@@ -8,7 +8,7 @@
 
 # Demo
 
-Coming soon...
+[Demo Link](https://pazarama-week3.netlify.app/)
 
 # Installation
 
